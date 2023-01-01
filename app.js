@@ -1,3 +1,27 @@
+/* Modal */
+let modalContainer = document.querySelector(".modal");
+let modalOpenButton = document.querySelector(".open-modal");
+let modalCloseButton = document.querySelector(".close-modal-btn");
+
+/*Open Modal On click */
+modalOpenButton.onclick = function (){
+    modalContainer.style.display = "block";
+}
+
+
+/* Close Modal Button On Click*/
+modalCloseButton.onclick = function () {
+    modalContainer.style.display = " none";
+}
+
+/* */
+window.onclick = function(event){
+    if(event.target == modalContainer){
+        modalContainer.style.display = "none";
+    }
+}
+
+
 
 /* Library*/
 let myLibrary = [
@@ -12,8 +36,27 @@ let myLibrary = [
         author: "loiuuyyy",
         pages: 300,
         read: true
+    },
+    {
+        title: "cara yiu",
+        author: "palacious",
+        pages: 300,
+        read: false
+    },
+    {
+        title: "loooo",
+        author: "loiuuyyy",
+        pages: 300,
+        read: false
     }
 ];
+
+
+
+
+
+
+
 
 /* Book Constructor*/
 function Book(title,author,pages,read){
@@ -33,9 +76,8 @@ function createElementsForBook(element, content, className,type){
     return bookElement;
 }
 
-function toggleClass(element,className){
-    return element.classList.toggle(className);
-}
+
+
 
 
 /* Creating Each Book Card*/
@@ -47,16 +89,33 @@ function createBook(book,index){
     bookDiv.appendChild(createElementsForBook('h1',`${book.title}`, 'title',''));
     bookDiv.appendChild(createElementsForBook('p',`By: ${book.author}`, 'author',''));
     bookDiv.appendChild(createElementsForBook('p',`Pages: ${book.pages}`, 'author',''));
-    bookDiv.appendChild(createElementsForBook('button','read', 'read-btn', ''))
-    bookDiv.appendChild(createElementsForBook('button','delete', 'delete-btn', ''))
-    bookContainer.insertAdjacentElement('afterbegin',bookDiv);
+    bookDiv.appendChild(createElementsForBook('button','not read', 'read-btn', 'submit'))
+    bookDiv.appendChild(createElementsForBook('button','delete', 'delete-btn', 'submit'))
+    const readBtn = bookDiv.querySelector('.read-btn');
+    readBtn.addEventListener('click', () =>{
+        bookDiv.classList.toggle('read');
+        if(readBtn.textContent !== "read"){
+            readBtn.textContent = "read";
+            book.read = true;
+        }
+        else{
+            readBtn.textContent = "not read";
+            book.read = false;
+        }
+    })
+
+
     
+    
+    bookContainer.insertAdjacentElement('afterbegin',bookDiv);
 }
+
+
 
 /*Displays all books in Libray*/
 function renderBook(){
-    myLibrary.forEach((book)=>{
-        createBook(book);
+    myLibrary.map((book,index)=>{
+        createBook(book,index);
     })
 }
 

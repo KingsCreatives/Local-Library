@@ -10,7 +10,7 @@
 <body>
     <header>
         <h1>Local Library</h1>
-        <span><button>&plus;</button>Add book</span>
+        <button class="open-modal">+</button>
     </header>
 
     <main>
@@ -19,7 +19,23 @@
         </div>
     </main>
 
-
+    <footer></footer>
+    <div class="modal" id="addBookModal">
+        <form class="add-book-form" id="addBookForm">
+          <div class="modal-top">
+            <h3>Add new book</h3>
+            <span class="close-modal-btn">&times</span>
+          </div>
+          <input class="input" type="text" id="title" placeholder="Title" required="" maxlength="100">
+          <input class="input" type="text" id="author" placeholder="Author" required="" maxlength="100">
+          <input class="input" type="number" id="pages" placeholder="Pages" required="" max="10000">
+          <div class="is-read">
+            <label for="is-read">Have you read it?</label>
+            <input class="checkbox" type="checkbox" id="isRead">
+          </div>
+          <button class="submit-btn" type="submit">Submit</button>
+        </form>
+      </div>
 
     <script src="./app.js"></script>
 </body>

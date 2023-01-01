@@ -11,14 +11,20 @@
     margin: 0;
     padding: 0;
 }
+body{
+    width: 100%;
+}
 
 main{
     display: block;
-    width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
 }
+
+
+/*Header Items*/
 
 header{
     display: flex;
@@ -46,6 +52,10 @@ header span button{
     padding-right: 3px;
     padding-left: 3px;
 }
+
+
+
+/*Book Container*/
 
 .book-container{
     display: grid;
@@ -98,11 +108,100 @@ header span button{
 
 }
 
+/*Modal*/
+.modal{
+    display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 15vh; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0, 0, 0); 
+  background-color: rgba(0, 0, 0, 0.7); 
+
+}
+
+.add-book-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    padding: 5px;
+    background-color: rgb(164, 181, 199);
+    width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+}
+
+.add-book-form .modal-top{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    gap: 50px;
+    color: black;
+    font-weight: bold;
+}
+
+.add-book-form .modal-top span{
+    float: right;
+    font-size: 28px;
+}
+
+.modal-top h3{
+    margin-left: 60px;
+    margin-right: 20px;
+}
+
+.add-book-form .modal-top span:hover{
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.add-book-form input{
+    width: 100% ;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+.submit-btn{
+    border-radius: 8px;
+    font-size: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.submit-btn:hover{
+    color: white;
+    font-weight: bolder;
+    background-color: var(--dark-bg);
+    outline: none;
+}
+
+
+.is-read input{
+    cursor: pointer;
+}
+
+/*Media Queries*/
 @media(max-width: 560px){
     header{
         gap: 100px;
-        margin-left: auto;
-        margin-right: auto;
+        
     }
     header h1{
         font-size: x-large;
@@ -112,3 +211,4 @@ header span button{
         font-size: 20px;
     }
 }
+
