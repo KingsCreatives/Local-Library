@@ -14,13 +14,12 @@ modalCloseButton.onclick = function () {
     modalContainer.style.display = " none";
 }
 
-/* */
+/*Close Modal If window is selected*/
 window.onclick = function(event){
     if(event.target == modalContainer){
         modalContainer.style.display = "none";
     }
 }
-
 
 
 /* Library*/
