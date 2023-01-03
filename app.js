@@ -74,6 +74,7 @@ function userInputs(){
     console.log(myLibrary);
 }
 
+
 /* Add book to Library*/
 function addToLibrary(){
     const submitBtn = document.querySelector(".submit-btn");
@@ -85,4 +86,14 @@ function addToLibrary(){
     addBookForm.reset()
 }
 
-addToLibrary()
+
+
+/* Render book */
+function renderBook(){
+    addToLibrary();
+    if(myLibrary.length > 0){
+        Book.prototype.createBookCard();
+    }
+}
+
+renderBook();
