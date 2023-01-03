@@ -58,7 +58,7 @@ Book.prototype.createBookCard = function () {
     bookDiv.appendChild(readBtn);
     const deleteBtn = createElementsForBook('button', 'delete');
     bookDiv.appendChild(deleteBtn);
-    booksContainer.insertAdjacentElement(bookDiv);
+    booksContainer.insertAdjacentElement('afterbegin',bookDiv);
 }
 
 
@@ -71,7 +71,6 @@ function userInputs(){
     const isChecked = document.querySelector("#checkbox").checked;
     const myBook = new Book(bookTitle, bookAuthor, bookPages, isChecked);
     myLibrary.push(myBook);
-    console.log(myLibrary);
 }
 
 
@@ -82,6 +81,7 @@ function addToLibrary(){
         e.preventDefault();
         modalContainer.style.display = "none";
         userInputs();
+        renderBook()
     })
     addBookForm.reset()
 }
@@ -92,8 +92,8 @@ function addToLibrary(){
 function renderBook(){
     addToLibrary();
     if(myLibrary.length > 0){
-        Book.prototype.createBookCard();
+        myLibrary[myLibrary.length-1].createBookCard();
     }
 }
 
-renderBook();
+renderBook()
