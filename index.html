@@ -18,7 +18,13 @@
 
     <main>
         <div class="book-container">
-
+           <div class="book-div">
+             <h1 class="title">Kwesi Fella</h1>
+             <p class="author">By: Kofi Wes</p>
+             <p class="pages">Pages: 123</p>
+             <button class="read-btn">Read</button>
+             <button class="delete-btn">Delete</button>
+           </div>
         </div>
     </main>
 
@@ -29,17 +35,16 @@
             <h3>Add new book</h3>
             <span class="close-modal-btn">&times</span>
           </div>
-          <input class="input" type="text" id="title" placeholder="Title" required="" maxlength="100">
-          <input class="input" type="text" id="author" placeholder="Author" required="" maxlength="100">
-          <input class="input" type="number" id="pages" placeholder="Pages" required="" max="10000">
+          <input class="title" type="text" id="title" placeholder="Title" required="" maxlength="100">
+          <input class="author" type="text" id="author" placeholder="Author" required="" maxlength="100">
+          <input class="pages" type="number" id="pages" placeholder="Pages" required="" max="10000">
           <div class="is-read">
             <label for="is-read">Have you read it?</label>
-            <input class="checkbox" type="checkbox" id="isRead">
+            <input class="checkbox" type="checkbox" id="checkbox">
           </div>
           <button class="submit-btn" type="submit">Submit</button>
         </form>
       </div>
-
     <script src="./app.js"></script>
 </body>
 </html>

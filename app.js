@@ -23,38 +23,8 @@ window.onclick = function(event){
 
 
 /* Library*/
-let myLibrary = [
-    { 
-        title: "love in the sky",
-        author: "Kofi Babon",
-        pages: 3300,
-        read: true
-    },
-    {
-        title: "loooo",
-        author: "loiuuyyy",
-        pages: 300,
-        read: true
-    },
-    {
-        title: "cara yiu",
-        author: "palacious",
-        pages: 300,
-        read: false
-    },
-    {
-        title: "loooo",
-        author: "loiuuyyy",
-        pages: 300,
-        read: false
-    }
-];
-
-
-
-
-
-
+let myLibrary = [];
+let booksContainer = document.querySelector(".book-container");
 
 
 /* Book Constructor*/
@@ -63,59 +33,39 @@ function Book(title,author,pages,read){
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.id = Math.floor(Math.random() * 1000);
 }
 
 /* Creates Elements needed for book*/
-function createElementsForBook(element, content, className,type){
+function createElementsForBook(element, content, className){
     const bookElement = document.createElement(element);
     bookElement.textContent = content;
     bookElement.classList = className;
-    bookElement.type = type;
     return bookElement;
 }
 
-
-
-
-
-/* Creating Each Book Card*/
-function createBook(book,index){
-    const bookContainer = document.querySelector(".book-container");
-    const bookDiv = createElementsForBook('div', "", "book-div", '');
-    bookDiv.setAttribute('id', index);
-    bookDiv.setAttribute('key', index);
-    bookDiv.appendChild(createElementsForBook('h1',`${book.title}`, 'title',''));
-    bookDiv.appendChild(createElementsForBook('p',`By: ${book.author}`, 'author',''));
-    bookDiv.appendChild(createElementsForBook('p',`Pages: ${book.pages}`, 'author',''));
-    bookDiv.appendChild(createElementsForBook('button','not read', 'read-btn', 'submit'))
-    bookDiv.appendChild(createElementsForBook('button','delete', 'delete-btn', 'submit'))
-    const readBtn = bookDiv.querySelector('.read-btn');
-    readBtn.addEventListener('click', () =>{
-        bookDiv.classList.toggle('read');
-        if(readBtn.textContent !== "read"){
-            readBtn.textContent = "read";
-            book.read = true;
-        }
-        else{
-            readBtn.textContent = "not read";
-            book.read = false;
-        }
-    })
-
-
-    
-    
-    bookContainer.insertAdjacentElement('afterbegin',bookDiv);
+/*Creating Book*/
+Book.prototype.createBookCard = function () {
+    const bookDiv = createElementsForBook('div', '', 'book-div');
+    const title = createElementsForBook('h1', `${this.title}`, 'title');
+    bookDiv.appendChild(title);
+    const author = createElementsForBook('p', `${this.title}`, 'author');
+    bookDiv.appendChild(author);
+    const pages = createElementsForBook('p', `${this.pages}`, 'pages');
+    bookDiv.appendChild(pages);
+    const readBtn = createElementsForBook('button', '', 'read-btn');
+    readBtn.textContent = readBtn? "Read" :  "Not read";
+    bookDiv.appendChild(readBtn);
+    const deleteBtn = createElementsForBook('button', 'delete');
+    bookDiv.appendChild(deleteBtn);
+    booksContainer.insertAdjacentElement(bookDiv);
 }
 
 
+/* Get User Inputs*/
 
-/*Displays all books in Libray*/
-function renderBook(){
-    myLibrary.map((book,index)=>{
-        createBook(book,index);
-    })
+function userInputs(){
+    const bookTitle = document.querySelector("#title").value;
+    const bookAuthor = document.querySelector("#author").value;
+    const bookPages = document.querySelector("#pages").value;
+    const isChecked = document.querySelector("")
 }
-
-renderBook()
