@@ -67,5 +67,7 @@ function userInputs(){
     const bookTitle = document.querySelector("#title").value;
     const bookAuthor = document.querySelector("#author").value;
     const bookPages = document.querySelector("#pages").value;
-    const isChecked = document.querySelector("")
+    const isChecked = document.querySelector("checked").checked;
+    const myBook = new Book(bookTitle, bookAuthor, bookPages, isChecked);
+    return myBook;
 }
