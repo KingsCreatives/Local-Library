@@ -2,6 +2,7 @@
 let modalContainer = document.querySelector(".modal");
 let modalOpenButton = document.querySelector(".open-modal");
 let modalCloseButton = document.querySelector(".close-modal-btn");
+let addBookForm = document.querySelector(".add-book-form");
 
 /*Open Modal On click */
 modalOpenButton.onclick = function (){
@@ -67,7 +68,21 @@ function userInputs(){
     const bookTitle = document.querySelector("#title").value;
     const bookAuthor = document.querySelector("#author").value;
     const bookPages = document.querySelector("#pages").value;
-    const isChecked = document.querySelector("checked").checked;
+    const isChecked = document.querySelector("#checkbox").checked;
     const myBook = new Book(bookTitle, bookAuthor, bookPages, isChecked);
-    return myBook;
+    myLibrary.push(myBook);
+    console.log(myLibrary);
 }
+
+/* Add book to Library*/
+function addToLibrary(){
+    const submitBtn = document.querySelector(".submit-btn");
+    submitBtn.addEventListener("click", (e) =>{
+        e.preventDefault();
+        modalContainer.style.display = "none";
+        userInputs();
+    })
+    addBookForm.reset()
+}
+
+addToLibrary()
