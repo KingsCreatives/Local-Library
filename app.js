@@ -49,16 +49,29 @@ Book.prototype.createBookCard = function () {
     const bookDiv = createElementsForBook('div', '', 'book-div');
     const title = createElementsForBook('h1', `${this.title}`, 'title');
     bookDiv.appendChild(title);
-    const author = createElementsForBook('p', `${this.title}`, 'author');
+    const author = createElementsForBook('p', `${this.author}`, 'author');
     bookDiv.appendChild(author);
     const pages = createElementsForBook('p', `${this.pages}`, 'pages');
     bookDiv.appendChild(pages);
     const readBtn = createElementsForBook('button', '', 'read-btn');
-    readBtn.textContent = readBtn? "Read" :  "Not read";
     bookDiv.appendChild(readBtn);
     const deleteBtn = createElementsForBook('button', 'delete');
     bookDiv.appendChild(deleteBtn);
     booksContainer.insertAdjacentElement('afterbegin',bookDiv);
+}
+
+
+function checkReadStatus (){
+    const checkbox = document.getElementById('checkbox');
+    const readButton = document.querySelector('.read-btn');
+    const bookDiv = document.querySelector('.book-div');
+     if(checkbox.checked === true){
+         readButton.textContent = "Done Reading";
+         bookDiv.classList.add = "read";
+        }
+       /* else{
+        readButton.textContent = "Still reading";
+        }
 }
 
 
@@ -77,6 +90,7 @@ function userInputs(){
 /* Add book to Library*/
 function addToLibrary(){
     const submitBtn = document.querySelector(".submit-btn");
+    checkReadStatus()
     submitBtn.addEventListener("click", (e) =>{
         e.preventDefault();
         modalContainer.style.display = "none";
@@ -96,4 +110,4 @@ function renderBook(){
     }
 }
 
-renderBook()
+renderBook();
