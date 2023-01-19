@@ -48,20 +48,33 @@ function createElementsForBook(element, content, className){
 Book.prototype.createBookCard = function () {
     if(this.title !== "" && this.author !== "" && this.pages !== ""){
         const bookDiv = createElementsForBook('div', '', 'book-div');
-    const title = createElementsForBook('h1', `${this.title}`, 'title');
-    bookDiv.appendChild(title);
-    const author = createElementsForBook('p', `${this.author}`, 'author');
-    bookDiv.appendChild(author);
-    const pages = createElementsForBook('p', `${this.pages}`, 'pages');
-    bookDiv.appendChild(pages);
-    const readBtn = createElementsForBook('button', '', 'read-btn');
-    bookDiv.appendChild(readBtn);
-    const deleteBtn = createElementsForBook('button', 'delete');
-    bookDiv.appendChild(deleteBtn);
-    booksContainer.insertAdjacentElement('afterbegin',bookDiv);
+        const title = createElementsForBook('h1', `${this.title}`, 'title');
+        bookDiv.appendChild(title);
+        const author = createElementsForBook('p', `${this.author}`, 'author');
+        bookDiv.appendChild(author);
+        const pages = createElementsForBook('p', `${this.pages}`, 'pages');
+        bookDiv.appendChild(pages);
+        const readBtn = createElementsForBook('button', '', 'read-btn');
+        this.checkReadStatus();
+        bookDiv.appendChild(readBtn);
+        const deleteBtn = createElementsForBook('button', 'delete');
+        bookDiv.appendChild(deleteBtn);
+        booksContainer.insertAdjacentElement('afterbegin',bookDiv);
     }
 }
 
+
+/*Check Read Status */
+Book.prototype.checkReadStatus = function(){
+    let checkbox = document.getElementById("checkbox");
+    let readButton = document.getElementsByClassName("read-btn");
+    if(checkbox.checked === true){
+        readButton.textContent = "Read Book";
+        booksContainer.classList.add("read");
+    } else{
+        readButton.textContent = "Still Reading";
+    }
+}
 
 /* Get User Inputs*/
 
