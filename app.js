@@ -46,7 +46,8 @@ function createElementsForBook(element, content, className){
 
 /*Creating Book*/
 Book.prototype.createBookCard = function () {
-    const bookDiv = createElementsForBook('div', '', 'book-div');
+    if(this.title !== "" && this.author !== "" && this.pages !== ""){
+        const bookDiv = createElementsForBook('div', '', 'book-div');
     const title = createElementsForBook('h1', `${this.title}`, 'title');
     bookDiv.appendChild(title);
     const author = createElementsForBook('p', `${this.author}`, 'author');
@@ -54,11 +55,11 @@ Book.prototype.createBookCard = function () {
     const pages = createElementsForBook('p', `${this.pages}`, 'pages');
     bookDiv.appendChild(pages);
     const readBtn = createElementsForBook('button', '', 'read-btn');
-    const checkReadStatus = document.getElementById("checkbox");
     bookDiv.appendChild(readBtn);
     const deleteBtn = createElementsForBook('button', 'delete');
     bookDiv.appendChild(deleteBtn);
     booksContainer.insertAdjacentElement('afterbegin',bookDiv);
+    }
 }
 
 
@@ -82,18 +83,17 @@ function addToLibrary(){
         modalContainer.style.display = "none";
         userInputs();
         renderBook();
+        addBookForm.reset();
     })
-    addBookForm.reset();
 }
 
 
 
 /* Render book */
 function renderBook(){
-    addToLibrary();
     if(myLibrary.length > 0){
         myLibrary[myLibrary.length-1].createBookCard();
     }
 }
 
-renderBook();
+addToLibrary();
