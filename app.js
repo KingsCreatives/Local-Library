@@ -59,6 +59,7 @@ Book.prototype.createBookCard = function () {
         bookDiv.appendChild(readBtn);
         const deleteBtn = createElementsForBook('button', 'Delete');
         bookDiv.appendChild(deleteBtn);
+        this.removeBookFromLibrary(deleteBtn,bookDiv);
         booksContainer.insertAdjacentElement('afterbegin',bookDiv);
     }
 }
@@ -74,6 +75,7 @@ Book.prototype.checkReadStatus = function(button, booksDiv){
         button.textContent = "Still Reading"
     }
 
+    /* Toggle Read Status */
     button.addEventListener("click", function(){
         if(button.textContent === "Done Reading"){
          button.textContent = "Still Reading";
@@ -86,7 +88,13 @@ Book.prototype.checkReadStatus = function(button, booksDiv){
     })
 }
 
-
+/* Remove Book from Library*/
+Book.prototype.removeBookFromLibrary = function(button, div){
+    button.addEventListener("click", function(){
+        myLibrary.splice(div, 1);
+        console.log(myLibrary);
+    })
+}
 
 /* Get User Inputs*/
 function userInputs(){

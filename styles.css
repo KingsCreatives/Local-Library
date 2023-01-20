@@ -194,12 +194,37 @@ header{
     font-weight: bolder;
     background-color: var(--dark-bg);
     outline: none;
+    cursor: pointer;
 }
 
 
 .is-read input{
     cursor: pointer;
 }
+
+/*Footer*/
+footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+.fab{
+    font-weight: 400;
+}
+
+.fa-github{
+    font-size: 24px;
+    color: black;
+    
+}
+
 
 /*Media Queries*/
 @media(max-width: 560px){
