@@ -54,10 +54,10 @@ Book.prototype.createBookCard = function () {
         bookDiv.appendChild(author);
         const pages = createElementsForBook('p', `${this.pages}`, 'pages');
         bookDiv.appendChild(pages);
-        const readBtn = createElementsForBook('button', '', 'read-btn');
-        this.checkReadStatus();
+        const readBtn = createElementsForBook('button', 'Read', 'read-btn');
+        this.checkReadStatus(readBtn,bookDiv);
         bookDiv.appendChild(readBtn);
-        const deleteBtn = createElementsForBook('button', 'delete');
+        const deleteBtn = createElementsForBook('button', 'Delete');
         bookDiv.appendChild(deleteBtn);
         booksContainer.insertAdjacentElement('afterbegin',bookDiv);
     }
@@ -65,19 +65,19 @@ Book.prototype.createBookCard = function () {
 
 
 /*Check Read Status */
-Book.prototype.checkReadStatus = function(){
+Book.prototype.checkReadStatus = function(readButton, booksDiv){  
     let checkbox = document.getElementById("checkbox");
     let readButton = document.getElementsByClassName("read-btn");
     if(checkbox.checked === true){
-        readButton.textContent = "Read Book";
-        booksContainer.classList.add("read");
+        readButton.textContent = "Read Book"
+        booksDiv.classList.add("read");
     } else{
-        readButton.textContent = "Still Reading";
+        readButton.textContent = "Not Read Yet"
     }
 }
 
-/* Get User Inputs*/
 
+/* Get User Inputs*/
 function userInputs(){
     const bookTitle = document.querySelector("#title").value;
     const bookAuthor = document.querySelector("#author").value;
