@@ -66,15 +66,26 @@ Book.prototype.createBookCard = function () {
 
 /*Check Read Status */
 Book.prototype.checkReadStatus = function(button, booksDiv){  
-    let checkbox = document.getElementById("checkbox");
-    let readButton = document.getElementsByClassName("read-btn");
+    let checkbox = document.querySelector("#checkbox");
     if(checkbox.checked === true){
-        button.textContent = "Read Book"
+        button.textContent = "Done Reading"
         booksDiv.classList.add("read");
     } else{
-        button.textContent = "Not Read Yet"
+        button.textContent = "Still Reading"
     }
+
+    button.addEventListener("click", function(){
+        if(button.textContent === "Done Reading"){
+         button.textContent = "Still Reading";
+         booksDiv.classList.remove("read");
+         }
+         else{
+            button.textContent = "Done Reading";
+            booksDiv.classList.add("read");
+         }
+    })
 }
+
 
 
 /* Get User Inputs*/
