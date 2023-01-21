@@ -131,8 +131,6 @@ function addToLibrary(){
  function retrieveBooksFromLocalStorage(){
     let books = localStorage.getItem(`myLibrary`);
     books = JSON.parse(books);
-    myLibrary = books;
-    renderBook();
  }
 
 
@@ -144,4 +142,4 @@ function renderBook(){
 }
 
 addToLibrary();
-retrieveBooksFromLocalStorage()
+retrieveBooksFromLocalStorage();
