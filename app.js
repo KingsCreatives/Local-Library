@@ -92,7 +92,7 @@ Book.prototype.checkReadStatus = function(button, booksDiv){
 Book.prototype.removeBookFromLibrary = function(button, div){
     button.addEventListener("click", function(){
         myLibrary.splice(div, 1);
-        console.log(myLibrary);
+        booksContainer.removeChild(div);
     })
 }
 
