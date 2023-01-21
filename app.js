@@ -93,6 +93,7 @@ Book.prototype.removeBookFromLibrary = function(button, div){
     button.addEventListener("click", function(){
         myLibrary.splice(div, 1);
         booksContainer.removeChild(div);
+        saveToLocalStorage();
     })
 }
 
@@ -114,11 +115,25 @@ function addToLibrary(){
         e.preventDefault();
         modalContainer.style.display = "none";
         userInputs();
+        saveToLocalStorage();
         renderBook();
         addBookForm.reset();
     })
 }
 
+
+/*Save Book To Local Storage*/
+ function saveToLocalStorage(){
+    localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
+ }
+
+ /* Retrieve Book From Local Storage*/
+ function retrieveBooksFromLocalStorage(){
+    let books = localStorage.getItem(`myLibrary`);
+    books = JSON.parse(books);
+    myLibrary = books;
+    renderBook();
+ }
 
 
 /* Render book */
@@ -129,3 +144,4 @@ function renderBook(){
 }
 
 addToLibrary();
+retrieveBooksFromLocalStorage()
