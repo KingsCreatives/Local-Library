@@ -70,9 +70,11 @@ Book.prototype.checkReadStatus = function(button, booksDiv){
     let checkbox = document.querySelector("#checkbox");
     if(checkbox.checked === true){
         button.textContent = "Done Reading"
+        this.read = true;
         booksDiv.classList.add("read");
     } else{
-        button.textContent = "Still Reading"
+        this.read = false;
+        button.textContent = "Still Reading";
     }
 
     /* Toggle Read Status */
@@ -80,10 +82,12 @@ Book.prototype.checkReadStatus = function(button, booksDiv){
         if(button.textContent === "Done Reading"){
          button.textContent = "Still Reading";
          booksDiv.classList.remove("read");
+         this.read = false;
          }
          else{
             button.textContent = "Done Reading";
             booksDiv.classList.add("read");
+            this.read = true;
          }
     })
 }
@@ -131,17 +135,22 @@ function addToLibrary(){
  function retrieveBooksFromLocalStorage(){
     let books = localStorage.getItem(`myLibrary`);
     books = JSON.parse(books);
-    myLibrary = books;
+     if(books !== null){
+        myLibrary = books;
+     }
     
-    for(let prop in myLibrary){
-        let arrValue = Object.values(myLibrary[prop]);
-        let title = arrValue[0];
-        let arthor = arrValue[1];
-        let pages = arrValue[2];
-        let read = arrValue[arrValue.length-1];
-        let book = new Book(title,arthor, pages,read);
-        book.createBookCard();
-    }
+        if(myLibrary !== null){
+            for(let prop in myLibrary){
+                let arrValue = Object.values(myLibrary[prop]);
+                let title = arrValue[0];
+                let arthor = arrValue[1];
+                let pages = arrValue[2];
+                let read = arrValue[arrValue.length-1];
+                let book = new Book(title,arthor, pages,read);
+                book.createBookCard();
+            }
+        }
+    
  }
 
 
