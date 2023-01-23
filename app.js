@@ -48,11 +48,11 @@ function createElementsForBook(element, content, className){
 Book.prototype.createBookCard = function () {
     if(this.title !== "" && this.author !== "" && this.pages !== ""){
         const bookDiv = createElementsForBook('div', '', 'book-div');
-        const title = createElementsForBook('h1', `${this.title}`, 'title');
+        const title = createElementsForBook('h4', `Title: ${this.title}`, 'title');
         bookDiv.appendChild(title);
-        const author = createElementsForBook('p', `${this.author}`, 'author');
+        const author = createElementsForBook('p', `By:  ${this.author}`, 'author');
         bookDiv.appendChild(author);
-        const pages = createElementsForBook('p', `${this.pages}`, 'pages');
+        const pages = createElementsForBook('p', `Pages:  ${this.pages}`, 'pages');
         bookDiv.appendChild(pages);
         const readBtn = createElementsForBook('button', '', 'read-btn');
         this.checkReadStatus(readBtn,bookDiv);

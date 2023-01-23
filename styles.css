@@ -71,6 +71,7 @@ header{
 }
 
 .book-div{
+    padding-top: 10px;
     gap: 10px;
     display: flex;
     flex-direction: column;
@@ -87,10 +88,6 @@ header{
     border-left: 15px solid rgb(100, 204, 100);
 }
 
-.book-div h1{
-    padding-top: 8px;
-    font-size: 30px;
-}
 
 .book-div button{
     margin-left: auto;
