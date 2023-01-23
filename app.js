@@ -68,28 +68,30 @@ Book.prototype.createBookCard = function () {
 /*Check Read Status */
 Book.prototype.checkReadStatus = function(button, booksDiv){  
     let checkbox = document.querySelector("#checkbox");
-    if(checkbox.checked === true){
+    if(checkbox.checked === true || this.read === true){
         button.textContent = "Done Reading"
-        this.read = true;
         booksDiv.classList.add("read");
     } else{
         this.read = false;
         button.textContent = "Still Reading";
     }
 
+    
+
     /* Toggle Read Status */
     button.addEventListener("click", function(){
-        if(button.textContent === "Done Reading"){
-         button.textContent = "Still Reading";
-         booksDiv.classList.remove("read");
-         this.read = false;
+         booksDiv.classList.toggle("read");
+         button.textContent === "Done Reading"? this.read = true : this.read = false;
+        if(this.read === true){
+            this.read = false;
+            button.textContent = "Still Reading";
          }
          else{
             button.textContent = "Done Reading";
-            booksDiv.classList.add("read");
             this.read = true;
          }
     })
+    saveToLocalStorage();
 }
 
 /* Remove Book from Library*/
@@ -107,8 +109,11 @@ function userInputs(){
     const bookAuthor = document.querySelector("#author").value;
     const bookPages = document.querySelector("#pages").value;
     const isChecked = document.querySelector("#checkbox").checked;
-    const myBook = new Book(bookTitle, bookAuthor, bookPages, isChecked);
-    myLibrary.push(myBook);
+    if(bookTitle === " " || bookAuthor === " " || bookPages === " ")return;
+    else{
+        const myBook = new Book(bookTitle, bookAuthor, bookPages, isChecked);
+        myLibrary.push(myBook);
+    }
 }
 
 
@@ -133,7 +138,17 @@ function addToLibrary(){
 
  /* Retrieve Book From Local Storage*/
  function retrieveBooksFromLocalStorage(){
-    let books = localStorage.getItem(`myLibrary`);
+    let libraryJSON = localStorage.getItem(`myLibrary`);
+    let booksArray = JSON.parse(libraryJSON);
+
+    if(booksArray === null) return;
+
+    booksArray.forEach(({title, author, pages, read}) => {
+        const book = new Book(title,author,pages,read);
+        myLibrary.push(book);
+        book.createBookCard();
+    })
+   /* let books = localStorage.getItem(`myLibrary`);
     books = JSON.parse(books);
      if(books !== null){
         myLibrary = books;
@@ -149,8 +164,7 @@ function addToLibrary(){
                 let book = new Book(title,arthor, pages,read);
                 book.createBookCard();
             }
-        }
-    
+        }*/
  }
 
 
