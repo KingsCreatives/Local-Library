@@ -56,6 +56,34 @@ class Book {
             booksContainer.insertAdjacentElement('afterbegin',bookDiv);
         }
     };
+
+    checkReadStatus(button, booksDiv){
+        let checkbox = document.querySelector("#checkbox");
+        if(checkbox.checked === true || this.read === true){
+            button.textContent = "Done Reading"
+            booksDiv.classList.add("read");
+        } else{
+            this.read = false;
+            button.textContent = "Still Reading";
+        }
+    
+        
+    
+        /* Toggle Read Status */
+        button.addEventListener("click", function(){
+             booksDiv.classList.toggle("read");
+             button.textContent === "Done Reading"? this.read = true : this.read = false;
+            if(this.read === true){
+                this.read = false;
+                button.textContent = "Still Reading";
+             }
+             else{
+                button.textContent = "Done Reading";
+                this.read = true;
+             }
+        })
+        saveToLocalStorage();
+    }
 }
 /* Creates Elements needed for book*/
 function createElementsForBook(element, content, className){
@@ -66,35 +94,6 @@ function createElementsForBook(element, content, className){
 }
 
 
-
-/*Check Read Status */
-Book.prototype.checkReadStatus = function(button, booksDiv){  
-    let checkbox = document.querySelector("#checkbox");
-    if(checkbox.checked === true || this.read === true){
-        button.textContent = "Done Reading"
-        booksDiv.classList.add("read");
-    } else{
-        this.read = false;
-        button.textContent = "Still Reading";
-    }
-
-    
-
-    /* Toggle Read Status */
-    button.addEventListener("click", function(){
-         booksDiv.classList.toggle("read");
-         button.textContent === "Done Reading"? this.read = true : this.read = false;
-        if(this.read === true){
-            this.read = false;
-            button.textContent = "Still Reading";
-         }
-         else{
-            button.textContent = "Done Reading";
-            this.read = true;
-         }
-    })
-    saveToLocalStorage();
-}
 
 /* Remove Book from Library*/
 Book.prototype.removeBookFromLibrary = function(button, div){
