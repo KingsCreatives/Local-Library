@@ -52,11 +52,12 @@ class Book {
             bookDiv.appendChild(readBtn);
             const deleteBtn = createElementsForBook('button', 'Delete');
             bookDiv.appendChild(deleteBtn);
-            this.removeBookFromLibrary(deleteBtn,bookDiv);
+            this.removeBook(deleteBtn,bookDiv);
             booksContainer.insertAdjacentElement('afterbegin',bookDiv);
         }
     };
 
+    //Check Book is Read or Not
     checkReadStatus(button, booksDiv){
         let checkbox = document.querySelector("#checkbox");
         if(checkbox.checked === true || this.read === true){
@@ -83,6 +84,15 @@ class Book {
              }
         })
         saveToLocalStorage();
+    };
+
+    //Remove Book From Library
+    removeBook(button,div){
+        button.addEventListener("click", function(){
+            myLibrary.splice(div, 1);
+            booksContainer.removeChild(div);
+            saveToLocalStorage();
+        })
     }
 }
 /* Creates Elements needed for book*/
@@ -93,16 +103,6 @@ function createElementsForBook(element, content, className){
     return bookElement;
 }
 
-
-
-/* Remove Book from Library*/
-Book.prototype.removeBookFromLibrary = function(button, div){
-    button.addEventListener("click", function(){
-        myLibrary.splice(div, 1);
-        booksContainer.removeChild(div);
-        saveToLocalStorage();
-    })
-}
 
 /* Get User Inputs*/
 function userInputs(){
