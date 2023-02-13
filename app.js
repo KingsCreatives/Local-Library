@@ -144,7 +144,6 @@ class Library {
 
 
     //Retrieve Book
-
    retrieveBooks (){
     let libraryJSON = localStorage.getItem(`myLibrary`);
     let booksArray = JSON.parse(libraryJSON);
@@ -160,14 +159,6 @@ class Library {
 }
 
 
-
- /* Retrieve Book From Local Storage*/
- function retrieveBooksFromLocalStorage(){
-   
-
- }
-
-
 /* Render book */
 function renderBook(){
     if(myLibrary.length > 0){
@@ -177,4 +168,4 @@ function renderBook(){
 
 const libraryClass = new Library();
 libraryClass.addToLibrary();
-retrieveBooksFromLocalStorage();
+libraryClass.retrieveBooks();
