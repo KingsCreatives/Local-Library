@@ -132,7 +132,7 @@ class Library {
         e.preventDefault();
         modalContainer.style.display = "none";
         userInputs();
-        renderBook();
+        libraryClass.renderBooks();
         addBookForm.reset();
     })
     };
@@ -155,15 +155,15 @@ class Library {
         myLibrary.push(book);
         book.createBookCard();
     })
-   }
-}
+   };
 
-
-/* Render book */
-function renderBook(){
+   //Render Books in Library
+   renderBooks(){
     if(myLibrary.length > 0){
         myLibrary[myLibrary.length-1].createBookCard();
     }
+   }
+
 }
 
 const libraryClass = new Library();
