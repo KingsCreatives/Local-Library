@@ -28,14 +28,35 @@ let myLibrary = [];
 let booksContainer = document.querySelector(".book-container");
 
 
-/* Book Constructor*/
-function Book(title,author,pages,read){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
+/*Book Class*/
+class Book {
+    constructor (title, author, pages, read) {
+         this.title = title;
+         this.author = author;
+         this.pages = pages;
+         this.read = read;
+    };
 
+    //Book Card
+    createBookCard (){
+        if(this.title !== "" && this.author !== "" && this.pages !== ""){
+            const bookDiv = createElementsForBook('div', '', 'book-div');
+            const title = createElementsForBook('h4', `Title: ${this.title}`, 'title');
+            bookDiv.appendChild(title);
+            const author = createElementsForBook('p', `By:  ${this.author}`, 'author');
+            bookDiv.appendChild(author);
+            const pages = createElementsForBook('p', `Pages:  ${this.pages}`, 'pages');
+            bookDiv.appendChild(pages);
+            const readBtn = createElementsForBook('button', '', 'read-btn');
+            this.checkReadStatus(readBtn,bookDiv);
+            bookDiv.appendChild(readBtn);
+            const deleteBtn = createElementsForBook('button', 'Delete');
+            bookDiv.appendChild(deleteBtn);
+            this.removeBookFromLibrary(deleteBtn,bookDiv);
+            booksContainer.insertAdjacentElement('afterbegin',bookDiv);
+        }
+    };
+}
 /* Creates Elements needed for book*/
 function createElementsForBook(element, content, className){
     const bookElement = document.createElement(element);
@@ -44,25 +65,6 @@ function createElementsForBook(element, content, className){
     return bookElement;
 }
 
-/*Creating Book*/
-Book.prototype.createBookCard = function () {
-    if(this.title !== "" && this.author !== "" && this.pages !== ""){
-        const bookDiv = createElementsForBook('div', '', 'book-div');
-        const title = createElementsForBook('h4', `Title: ${this.title}`, 'title');
-        bookDiv.appendChild(title);
-        const author = createElementsForBook('p', `By:  ${this.author}`, 'author');
-        bookDiv.appendChild(author);
-        const pages = createElementsForBook('p', `Pages:  ${this.pages}`, 'pages');
-        bookDiv.appendChild(pages);
-        const readBtn = createElementsForBook('button', '', 'read-btn');
-        this.checkReadStatus(readBtn,bookDiv);
-        bookDiv.appendChild(readBtn);
-        const deleteBtn = createElementsForBook('button', 'Delete');
-        bookDiv.appendChild(deleteBtn);
-        this.removeBookFromLibrary(deleteBtn,bookDiv);
-        booksContainer.insertAdjacentElement('afterbegin',bookDiv);
-    }
-}
 
 
 /*Check Read Status */
