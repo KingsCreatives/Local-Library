@@ -28,13 +28,74 @@ let myLibrary = [];
 let booksContainer = document.querySelector(".book-container");
 
 
-/* Book Constructor*/
-function Book(title,author,pages,read){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+/*Book Class*/
+class Book {
+    constructor (title, author, pages, read) {
+         this.title = title;
+         this.author = author;
+         this.pages = pages;
+         this.read = read;
+    };
+
+    //Book Card
+    createBookCard (){
+        if(this.title !== "" && this.author !== "" && this.pages !== ""){
+            const bookDiv = createElementsForBook('div', '', 'book-div');
+            const title = createElementsForBook('h4', `Title: ${this.title}`, 'title');
+            bookDiv.appendChild(title);
+            const author = createElementsForBook('p', `By:  ${this.author}`, 'author');
+            bookDiv.appendChild(author);
+            const pages = createElementsForBook('p', `Pages:  ${this.pages}`, 'pages');
+            bookDiv.appendChild(pages);
+            const readBtn = createElementsForBook('button', '', 'read-btn');
+            this.checkReadStatus(readBtn,bookDiv);
+            bookDiv.appendChild(readBtn);
+            const deleteBtn = createElementsForBook('button', 'Delete');
+            bookDiv.appendChild(deleteBtn);
+            this.removeBook(deleteBtn,bookDiv);
+            booksContainer.insertAdjacentElement('afterbegin',bookDiv);
+        }
+    };
+
+    //Check Book is Read or Not
+    checkReadStatus(button, booksDiv){
+        let checkbox = document.querySelector("#checkbox");
+        if(checkbox.checked === true || this.read === true){
+            button.textContent = "Done Reading"
+            booksDiv.classList.add("read");
+        } else{
+            this.read = false;
+            button.textContent = "Still Reading";
+        }
+    
+        
+    
+        /* Toggle Read Status */
+        button.addEventListener("click", function(){
+             booksDiv.classList.toggle("read");
+             button.textContent === "Done Reading"? this.read = true : this.read = false;
+            if(this.read === true){
+                this.read = false;
+                button.textContent = "Still Reading";
+             }
+             else{
+                button.textContent = "Done Reading";
+                this.read = true;
+             }
+        })
+        libraryClass.saveBook();
+    };
+
+    //Remove Book From Library
+    removeBook(button,div){
+        button.addEventListener("click", function(){
+            myLibrary.splice(div, 1);
+            booksContainer.removeChild(div);
+            libraryClass.saveBook();
+        })
+    };
 }
+
 
 /* Creates Elements needed for book*/
 function createElementsForBook(element, content, className){
@@ -44,64 +105,6 @@ function createElementsForBook(element, content, className){
     return bookElement;
 }
 
-/*Creating Book*/
-Book.prototype.createBookCard = function () {
-    if(this.title !== "" && this.author !== "" && this.pages !== ""){
-        const bookDiv = createElementsForBook('div', '', 'book-div');
-        const title = createElementsForBook('h4', `Title: ${this.title}`, 'title');
-        bookDiv.appendChild(title);
-        const author = createElementsForBook('p', `By:  ${this.author}`, 'author');
-        bookDiv.appendChild(author);
-        const pages = createElementsForBook('p', `Pages:  ${this.pages}`, 'pages');
-        bookDiv.appendChild(pages);
-        const readBtn = createElementsForBook('button', '', 'read-btn');
-        this.checkReadStatus(readBtn,bookDiv);
-        bookDiv.appendChild(readBtn);
-        const deleteBtn = createElementsForBook('button', 'Delete');
-        bookDiv.appendChild(deleteBtn);
-        this.removeBookFromLibrary(deleteBtn,bookDiv);
-        booksContainer.insertAdjacentElement('afterbegin',bookDiv);
-    }
-}
-
-
-/*Check Read Status */
-Book.prototype.checkReadStatus = function(button, booksDiv){  
-    let checkbox = document.querySelector("#checkbox");
-    if(checkbox.checked === true || this.read === true){
-        button.textContent = "Done Reading"
-        booksDiv.classList.add("read");
-    } else{
-        this.read = false;
-        button.textContent = "Still Reading";
-    }
-
-    
-
-    /* Toggle Read Status */
-    button.addEventListener("click", function(){
-         booksDiv.classList.toggle("read");
-         button.textContent === "Done Reading"? this.read = true : this.read = false;
-        if(this.read === true){
-            this.read = false;
-            button.textContent = "Still Reading";
-         }
-         else{
-            button.textContent = "Done Reading";
-            this.read = true;
-         }
-    })
-    saveToLocalStorage();
-}
-
-/* Remove Book from Library*/
-Book.prototype.removeBookFromLibrary = function(button, div){
-    button.addEventListener("click", function(){
-        myLibrary.splice(div, 1);
-        booksContainer.removeChild(div);
-        saveToLocalStorage();
-    })
-}
 
 /* Get User Inputs*/
 function userInputs(){
@@ -118,26 +121,30 @@ function userInputs(){
 
 
 /* Add book to Library*/
-function addToLibrary(){
+class Library {
+    constructor () {
+
+    }
+
+    addToLibrary(){
     const submitBtn = document.querySelector(".submit-btn");
     submitBtn.addEventListener("click", (e) =>{
         e.preventDefault();
         modalContainer.style.display = "none";
         userInputs();
-        saveToLocalStorage();
-        renderBook();
+        libraryClass.renderBooks();
         addBookForm.reset();
     })
-}
+    };
+
+     //Save Book 
+     saveBook (){
+        localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
+    };
 
 
-/*Save Book To Local Storage*/
- function saveToLocalStorage(){
-    localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
- }
-
- /* Retrieve Book From Local Storage*/
- function retrieveBooksFromLocalStorage(){
+    //Retrieve Book
+   retrieveBooks (){
     let libraryJSON = localStorage.getItem(`myLibrary`);
     let booksArray = JSON.parse(libraryJSON);
 
@@ -148,32 +155,17 @@ function addToLibrary(){
         myLibrary.push(book);
         book.createBookCard();
     })
-   /* let books = localStorage.getItem(`myLibrary`);
-    books = JSON.parse(books);
-     if(books !== null){
-        myLibrary = books;
-     }
-    
-        if(myLibrary !== null){
-            for(let prop in myLibrary){
-                let arrValue = Object.values(myLibrary[prop]);
-                let title = arrValue[0];
-                let arthor = arrValue[1];
-                let pages = arrValue[2];
-                let read = arrValue[arrValue.length-1];
-                let book = new Book(title,arthor, pages,read);
-                book.createBookCard();
-            }
-        }*/
- }
+   };
 
-
-/* Render book */
-function renderBook(){
+   //Render Books in Library
+   renderBooks(){
     if(myLibrary.length > 0){
         myLibrary[myLibrary.length-1].createBookCard();
     }
+   }
+
 }
 
-addToLibrary();
-retrieveBooksFromLocalStorage();
+const libraryClass = new Library();
+libraryClass.addToLibrary();
+libraryClass.retrieveBooks();
