@@ -149,23 +149,7 @@ function addToLibrary(){
         myLibrary.push(book);
         book.createBookCard();
     })
-   /* let books = localStorage.getItem(`myLibrary`);
-    books = JSON.parse(books);
-     if(books !== null){
-        myLibrary = books;
-     }
-    
-        if(myLibrary !== null){
-            for(let prop in myLibrary){
-                let arrValue = Object.values(myLibrary[prop]);
-                let title = arrValue[0];
-                let arthor = arrValue[1];
-                let pages = arrValue[2];
-                let read = arrValue[arrValue.length-1];
-                let book = new Book(title,arthor, pages,read);
-                book.createBookCard();
-            }
-        }*/
+
  }
 
 
