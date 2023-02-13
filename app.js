@@ -83,7 +83,7 @@ class Book {
                 this.read = true;
              }
         })
-        saveToLocalStorage();
+        libraryClass.saveBook();
     };
 
     //Remove Book From Library
@@ -91,10 +91,12 @@ class Book {
         button.addEventListener("click", function(){
             myLibrary.splice(div, 1);
             booksContainer.removeChild(div);
-            saveToLocalStorage();
+            libraryClass.saveBook();
         })
-    }
+    };
 }
+
+
 /* Creates Elements needed for book*/
 function createElementsForBook(element, content, className){
     const bookElement = document.createElement(element);
@@ -119,26 +121,31 @@ function userInputs(){
 
 
 /* Add book to Library*/
-function addToLibrary(){
+class Library {
+    constructor () {
+
+    }
+
+    addToLibrary(){
     const submitBtn = document.querySelector(".submit-btn");
     submitBtn.addEventListener("click", (e) =>{
         e.preventDefault();
         modalContainer.style.display = "none";
         userInputs();
-        saveToLocalStorage();
         renderBook();
         addBookForm.reset();
     })
-}
+    };
+
+     //Save Book 
+     saveBook (){
+        localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
+    };
 
 
-/*Save Book To Local Storage*/
- function saveToLocalStorage(){
-    localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
- }
+    //Retrieve Book
 
- /* Retrieve Book From Local Storage*/
- function retrieveBooksFromLocalStorage(){
+   retrieveBooks (){
     let libraryJSON = localStorage.getItem(`myLibrary`);
     let booksArray = JSON.parse(libraryJSON);
 
@@ -149,6 +156,14 @@ function addToLibrary(){
         myLibrary.push(book);
         book.createBookCard();
     })
+   }
+}
+
+
+
+ /* Retrieve Book From Local Storage*/
+ function retrieveBooksFromLocalStorage(){
+   
 
  }
 
@@ -160,5 +175,6 @@ function renderBook(){
     }
 }
 
-addToLibrary();
+const libraryClass = new Library();
+libraryClass.addToLibrary();
 retrieveBooksFromLocalStorage();
